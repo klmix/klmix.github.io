@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>rwall.de</title>
+<meta name="description" content="Projects: FGCensus, FGDrills, Corpse Arithmetic.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23151823'/%3E%3Cpath d='M11 24V12h4.5a3.5 3.5 0 0 1 0 7H11m5 0 5 5' fill='none' stroke='%237b8cff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Chivo+Mono:wght@400&display=swap">
+<style>
+:root {
+  --ground: #f3f4f7;
+  --ink: #121420;
+  --muted: #5b6075;
+  --faint: #8d92a5;
+  --line: #d6d9e3;
+  --accent: #3346e8;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "Chivo Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0c0e15;
+    --ink: #e9ebf3;
+    --muted: #8a8fa5;
+    --faint: #5f647a;
+    --line: #262a3a;
+    --accent: #8d9bff;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font: 17px/1.5 var(--body);
+  padding-inline: 20px;
+  padding-block: 56px 48px;
+}
+main { max-width: 620px; margin: 0 auto; }
+h1 { font: 400 15px/1 var(--mono); color: var(--muted); margin: 0 0 32px; }
+ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+li { border-bottom: 1px solid var(--line); }
+a {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; align-items: baseline;
+  padding-block: 16px; color: inherit; text-decoration: none;
+}
+.name { font-weight: 600; font-size: 19px; }
+.where { font: 400 13px var(--mono); color: var(--faint); text-align: right; }
+.desc { grid-column: 1 / -1; color: var(--muted); }
+a:hover .name { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+@media (max-width: 480px) {
+  a { grid-template-columns: minmax(0, 1fr); }
+  .where { text-align: left; grid-row: 3; }
+}
+</style>
+</head>
+<body>
+<main>
+  <h1>rwall.de</h1>
+  <ul>
+    <li>
+      <a href="https://fgcensus.info/">
+        <span class="name">FGCensus</span>
+        <span class="where">fgcensus.info</span>
+        <span class="desc">Live Steam player counts for fighting games, updated hourly.</span>
+      </a>
+    </li>
+    <li>
+      <a href="fgdrill/">
+        <span class="name">FGDrills</span>
+        <span class="where">/fgdrill</span>
+        <span class="desc">Fighting game drill and combo organizer with spaced repetition.</span>
+      </a>
+    </li>
+    <li>
+      <a href="corpse-arithmetic/">
+        <span class="name">Corpse Arithmetic</span>
+        <span class="where">/corpse-arithmetic</span>
+        <span class="desc">Encounter simulator for MÖRK BORG: win, death and HP-loss odds over thousands of fights.</span>
+      </a>
+    </li>
+  </ul>
+</main>
+</body>
+</html>
