@@ -2,88 +2,223 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>rwall.de</title>
-<meta name="description" content="Projects: FGCensus, FGDrills, Corpse Arithmetic.">
+<title>rwall — some useful tools</title>
+<meta name="description" content="A growing collection of small, focused web tools.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23151823'/%3E%3Cpath d='M11 24V12h4.5a3.5 3.5 0 0 1 0 7H11m5 0 5 5' fill='none' stroke='%237b8cff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#efeae0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15130f" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Chivo+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <style>
 :root {
-  --ground: #f3f4f7;
-  --ink: #121420;
-  --muted: #5b6075;
-  --faint: #8d92a5;
-  --line: #d6d9e3;
-  --accent: #3346e8;
-  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
-  --mono: "Chivo Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --paper: #efeae0;
+  --card: #f8f5ee;
+  --ink: #15130f;
+  --soft: #5e574b;
+  --faint: #8a8274;
+  --rule: #d9d2c4;
+  --hot: #ff5a1f;
+  --hot-text: #d63f06;
+  --on-hot: #15130f;
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Geist", "Segoe UI", system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --ground: #0c0e15;
-    --ink: #e9ebf3;
-    --muted: #8a8fa5;
-    --faint: #5f647a;
-    --line: #262a3a;
-    --accent: #8d9bff;
+    --paper: #15130f;
+    --card: #1d1a15;
+    --ink: #f1ebdf;
+    --soft: #b0a797;
+    --faint: #857d6f;
+    --rule: #2f2b24;
+    --hot: #ff6a33;
+    --hot-text: #ff6a33;
   }
 }
 * { box-sizing: border-box; }
+html { background: var(--paper); }
 body {
   margin: 0;
-  background: var(--ground);
+  background: var(--paper);
   color: var(--ink);
-  font: 17px/1.5 var(--body);
-  padding-inline: 20px;
-  padding-block: 56px 48px;
+  font: 400 16px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
 }
-main { max-width: 620px; margin: 0 auto; }
-h1 { font: 400 15px/1 var(--mono); color: var(--muted); margin: 0 0 32px; }
-ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-li { border-bottom: 1px solid var(--line); }
-a {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; align-items: baseline;
-  padding-block: 16px; color: inherit; text-decoration: none;
+.wrap { max-width: 1120px; margin: 0 auto; padding-inline: 16px; }
+@media (min-width: 700px) { .wrap { padding-inline: 40px; } }
+
+/* top bar */
+.bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-block: 22px; font: 500 13px var(--mono); letter-spacing: .02em;
 }
-.name { font-weight: 600; font-size: 19px; }
-.where { font: 400 13px var(--mono); color: var(--faint); text-align: right; }
-.desc { grid-column: 1 / -1; color: var(--muted); }
-a:hover .name { color: var(--accent); }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
-@media (max-width: 480px) {
-  a { grid-template-columns: minmax(0, 1fr); }
-  .where { text-align: left; grid-row: 3; }
+.mark { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.mark i { width: 12px; height: 12px; border-radius: 50%; background: var(--hot); }
+.bar nav a { color: var(--soft); text-decoration: none; }
+.bar nav a:hover { color: var(--hot-text); }
+
+/* hero */
+.hero { padding-block: clamp(24px, 5vw, 56px) clamp(24px, 4vw, 40px); border-bottom: 1px solid var(--rule); }
+.hero h1 { margin: 0; max-width: 46ch; color: var(--soft); font: 400 clamp(16px, 1.8vw, 19px)/1.55 var(--sans); }
+
+/* list heading */
+.label {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 16px;
+  padding-block: 26px 22px; font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--faint);
+}
+
+/* cards */
+.projects {
+  list-style: none; margin: 0; padding: 0; counter-reset: p;
+  display: grid; gap: clamp(16px, 2.4vw, 28px);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+}
+.projects li { counter-increment: p; }
+.projects a {
+  position: relative; display: flex; flex-direction: column; height: 100%;
+  padding: 12px 12px 22px; border-radius: 22px;
+  background: var(--card); border: 1px solid var(--rule);
+  color: inherit; text-decoration: none;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), border-color .25s;
+}
+.shot {
+  position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden;
+  border-radius: 12px; background: var(--rule);
+}
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.shot::before {
+  content: counter(p, decimal-leading-zero);
+  position: absolute; z-index: 1; left: 10px; top: 10px;
+  padding: 3px 8px; border-radius: 99px;
+  background: var(--ink); color: var(--paper); font: 500 11px/1.4 var(--mono);
+}
+.meta { display: flex; align-items: flex-start; gap: 14px; padding: 18px 8px 0; }
+.text { flex: 1; min-width: 0; }
+.name { display: block; font: 400 34px/1 var(--serif); letter-spacing: -.01em; }
+.desc { display: block; margin-top: 10px; color: var(--soft); font-size: 15px; }
+.foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 14px; }
+.where { margin-right: 6px; font: 400 12px var(--mono); color: var(--faint); overflow-wrap: anywhere; }
+.tag, .filters button {
+  padding: 2px 9px; border-radius: 99px; border: 1px solid var(--rule);
+  font: 500 11px/1.5 var(--mono); color: var(--soft); white-space: nowrap;
+}
+.filters { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.filters button { background: none; cursor: pointer; text-transform: none; letter-spacing: 0; padding: 4px 11px; }
+.filters button:hover { border-color: var(--hot); color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.projects li[hidden] { display: none; }
+.go {
+  flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--rule); transition: background .25s, border-color .25s, transform .25s;
+}
+.go svg { width: 16px; height: 16px; stroke: currentColor; }
+.projects a:hover { transform: translateY(-4px); border-color: var(--hot); }
+.projects a:hover .shot img { transform: scale(1.04); }
+.projects a:hover .go { background: var(--hot); border-color: var(--hot); color: var(--on-hot); transform: rotate(-45deg); }
+.projects a:focus-visible { outline: 3px solid var(--hot); outline-offset: 3px; }
+
+footer {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+  margin-top: clamp(56px, 8vw, 96px); padding-block: 22px 32px; border-top: 1px solid var(--rule);
+  font: 400 12px var(--mono); color: var(--faint);
+}
+footer a { color: var(--soft); }
+footer a:hover { color: var(--hot-text); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { transition: none !important; }
+  .projects a:hover, .projects a:hover .shot img, .projects a:hover .go { transform: none; }
 }
 </style>
 </head>
 <body>
-<main>
-  <h1>rwall.de</h1>
-  <ul>
-    <li>
-      <a href="https://fgcensus.info/">
-        <span class="name">FGCensus</span>
-        <span class="where">fgcensus.info</span>
-        <span class="desc">Live Steam player counts for fighting games, updated hourly.</span>
-      </a>
-    </li>
-    <li>
-      <a href="fgdrill/">
-        <span class="name">FGDrills</span>
-        <span class="where">/fgdrill</span>
-        <span class="desc">Fighting game drill and combo organizer with spaced repetition.</span>
-      </a>
-    </li>
-    <li>
+<div class="wrap">
+  <header class="bar">
+    <a class="mark" href="/"><i></i>rwall</a>
+    <nav><a href="https://github.com/klmix">GitHub ↗</a></nav>
+  </header>
+
+  <section class="hero">
+    <h1>some useful tools</h1>
+  </section>
+
+  <main>
+    <div class="label"><span>Tools</span><div class="filters" role="group" aria-label="Filter by tag" hidden></div></div>
+    <ul class="projects">
+    <!-- projects:start -->
+    <li data-tags="TTRPG|Mörk Borg">
       <a href="corpse-arithmetic/">
-        <span class="name">Corpse Arithmetic</span>
-        <span class="where">/corpse-arithmetic</span>
-        <span class="desc">Encounter simulator for MÖRK BORG: win, death and HP-loss odds over thousands of fights.</span>
+        <span class="shot"><img src="thumbs/corpse-arithmetic.jpg" alt="" width="1200" height="750" loading="lazy"></span>
+        <span class="meta">
+          <span class="text">
+            <span class="name">Corpse Arithmetic</span>
+            <span class="desc">Encounter simulator for MÖRK BORG: win, death and HP-loss odds over thousands of fights</span>
+            <span class="foot"><span class="where">/corpse-arithmetic</span><span class="tag">TTRPG</span><span class="tag">Mörk Borg</span></span>
+          </span>
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </span>
       </a>
     </li>
-  </ul>
-</main>
+    <li data-tags="FGC">
+      <a href="https://fgcensus.info/">
+        <span class="shot"><img src="thumbs/fgcensus.jpg" alt="" width="1200" height="750" loading="lazy"></span>
+        <span class="meta">
+          <span class="text">
+            <span class="name">FGCensus</span>
+            <span class="desc">Live Steam player counts for fighting games, updated hourly</span>
+            <span class="foot"><span class="where">fgcensus.info</span><span class="tag">FGC</span></span>
+          </span>
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </span>
+      </a>
+    </li>
+    <li data-tags="FGC">
+      <a href="fgdrill/">
+        <span class="shot"><img src="thumbs/fgdrill.jpg" alt="" width="1200" height="750" loading="lazy"></span>
+        <span class="meta">
+          <span class="text">
+            <span class="name">FGDrills</span>
+            <span class="desc">FG drill/combo organizer, allows learning with spaced repetition.</span>
+            <span class="foot"><span class="where">/fgdrill</span><span class="tag">FGC</span></span>
+          </span>
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+        </span>
+      </a>
+    </li>
+    <!-- projects:end -->
+    </ul>
+  </main>
+
+  <footer>
+    <span>This page updates itself whenever a new site goes live.</span>
+    <a href="https://github.com/klmix">github.com/klmix</a>
+  </footer>
+</div>
+<script>
+// Tag filter chips, built from the cards' data-tags.
+const items = [...document.querySelectorAll(".projects li")];
+const tags = [...new Set(items.flatMap((li) => li.dataset.tags ? li.dataset.tags.split("|") : []))].sort((a, b) => a.localeCompare(b));
+const bar = document.querySelector(".filters");
+if (tags.length) {
+  const buttons = ["All", ...tags].map((t) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = t;
+    b.setAttribute("aria-pressed", t === "All");
+    b.onclick = () => {
+      buttons.forEach((x) => x.setAttribute("aria-pressed", x === b));
+      items.forEach((li) => { li.hidden = t !== "All" && !li.dataset.tags.split("|").includes(t); });
+    };
+    return b;
+  });
+  bar.append(...buttons);
+  bar.hidden = false;
+}
+</script>
 </body>
 </html>
