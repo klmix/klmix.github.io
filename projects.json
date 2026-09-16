@@ -1,5 +1,6 @@
 {
   "corpse-arithmetic": { "tags": ["TTRPG", "Mörk Borg"] },
   "fgcensus": { "tags": ["FGC"] },
-  "fgdrill": { "tags": ["FGC"] }
+  "fgdrill": { "tags": ["FGC"] },
+  "performative-reader": { "tags": [] }
 }
