@@ -32,7 +32,14 @@ for (const repo of repos) {
   // GitHub redirects the default project URL to the custom domain, if one is set.
   let url = repo.homepage || `https://${SELF}/${repo.name}/`;
   try {
-    const r = await fetch(url, { redirect: "follow" });
+    // A freshly enabled site can take a minute to go live, so retry a few times.
+    let r;
+    for (let i = 0; i < 4; i++) {
+      r = await fetch(url, { redirect: "follow" }).catch(() => null);
+      if (r?.ok) break;
+      await new Promise((ok) => setTimeout(ok, 30000));
+    }
+    if (!r) { console.warn(`skip ${repo.name}: unreachable`); continue; }
     if (!r.ok) { console.warn(`skip ${repo.name}: ${r.status}`); continue; }
     url = r.url;
     await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
