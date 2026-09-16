@@ -1,6 +1,7 @@
 {
-  "corpse-arithmetic": { "tags": ["TTRPG", "Mörk Borg"] },
-  "fgcensus": { "tags": ["FGC"] },
-  "fgdrill": { "tags": ["FGC"] },
-  "performative-reader": { "tags": ["Books"] }
+  "corpse-arithmetic": {"tags": ["TTRPG", "Mörk Borg"]},
+  "fgcensus": {"tags": ["FGC"]},
+  "fgdrill": {"tags": ["FGC"]},
+  "performative-reader": {"tags": ["Books"]},
+  "astroprisma": {"tags": ["TTRPG", "Solo RPG"]}
 }
