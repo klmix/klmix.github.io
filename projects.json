@@ -3,5 +3,5 @@
   "fgcensus": {"tags": ["FGC"]},
   "fgdrill": {"tags": ["FGC"]},
   "performative-reader": {"tags": ["Books"]},
-  "astroprisma": {"tags": ["TTRPG", "Solo RPG"]}
+  "astroprisma": {"tags": ["TTRPG", "Solo RPG"], "hide": true}
 }
